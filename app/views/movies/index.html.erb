@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Movies</h1>
+
+
+
+<div class="input-group mb-3">
+  <%= form_tag movies_path, method: :get, class: "form-inline" do %>
+    <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2" %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-primary my-2 my-sm-10" %>
+  <% end %>
+</div>
+
+<% if @movies.present? %>
+  <table id="movies" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Director</th>
+        <th>Release Year</th>
+        <th>Actions</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td><%= movie.title %></td>
+          <td><%= movie.director %></td>
+          <td><%= movie.release_date %></td>
+          <td><%= link_to "Show", movie, class: "btn btn-success" %></td>
+          <td><%= link_to "Edit", edit_movie_path(movie), class: "btn btn-primary" %>          </td>
+          <td><%= link_to "Delete", movie, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No movies found.</p>
+<% end %>
+
+<%= link_to "New movie", new_movie_path, class: "btn btn-primary" %>
